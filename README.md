@@ -5,4 +5,6 @@
 <li><font color="green">the authentication service</font>, responsible for providing necessary access and user authentication.</li>
 <li><font color="green">the wishlist service</font>, allowing users to create and view their own wishlists as well as browse through their friends' wishlists.</li>
 <li><font color="green">the recommendation service</font>, which generates personalized gift recommendations based on the user's wishlist.</li>
+  <span style="color:red;">This text will be red</span>
+
 </ol>
