@@ -1,9 +1,9 @@
-<h1 align="center">**Wish List**</h1>
+<h1 align="center">** Wish List **</h1>
 <p margonTop="20px">This is a *microservice application* for creating personalized gift lists.</p>
 <p maarginTop="20px">Our application consists of three microservices: <p>
 <ol>
 <li>*the authentication service*, responsible for providing necessary access and user authentication.</li>
-<li>*the wishlist service*, allowing users to create and view their own wishlists as well as browse through their friends' wishlists.</li>
+<li>* the wishlist service *, allowing users to create and view their own wishlists as well as browse through their friends' wishlists.</li>
 <li>*the recommendation service*, which generates personalized gift recommendations based on the user's wishlist.</li>
 </ol>
 
