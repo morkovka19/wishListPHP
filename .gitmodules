@@ -1,9 +1,0 @@
-[submodule "wishListPHP_Auth_service"]
-	path = wishListPHP_Auth_service
-	url = https://github.com/ChiKApuMbA/wishListPHP_Auth_service.git
-[submodule "wishListPHP_Recs_service"]
-	path = wishListPHP_Recs_service
-	url = https://github.com/ChiKApuMbA/wishListPHP_Recs_service.git
-[submodule "wishListPHP_Wishlist_service"]
-	path = wishListPHP_Wishlist_service
-	url = https://github.com/ChiKApuMbA/wishListPHP_Wishlist_service.git
