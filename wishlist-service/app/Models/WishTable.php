@@ -14,27 +14,27 @@ class WishTable extends Model
         'description',
         'example_url',
         'tag_id',
-        'priority'
+        'priority',
+        'user_id'
     ];
 
     protected $casts = [
         'tag_id' => 'integer'
     ];
 
-    public static function createWish($data)
+    public function create($data)
     {
-        return self::create([
-            'name' => $data['name'],
-            'description' => $data['description'],
-            'example_url' => $data['example_url'],
-            'tag_id' => $data['tag_id'],
-            'priority' => $data['priority'],
-        ]);
+        return static::query()->create($data);
     }
 
-    public static function updateWish($id, $data)
+    public function findById(int $id)
     {
-        $wish = self::find($id);
+        return static::query()->findOrFail($id);
+    }
+
+    public function updateWish($id, $data)
+    {
+        $wish = self::query()->findOrFail($id);
 
         if (!$wish) {
             return false;
@@ -49,16 +49,5 @@ class WishTable extends Model
         ]);
 
         return $wish;
-    }
-
-    public static function deleteWish($id)
-    {
-        $wish = self::find($id);
-
-        if (!$wish) {
-            return false;
-        }
-
-        return $wish->delete();
     }
 }
