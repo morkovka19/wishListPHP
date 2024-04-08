@@ -29,12 +29,12 @@ class WishTable extends Model
 
     public function findById(int $id)
     {
-        return static::query()->findOrFail($id);
+        return static::query()->find($id);
     }
 
     public function updateWish($id, $data)
     {
-        $wish = self::query()->findOrFail($id);
+        $wish = self::query()->find($id);
 
         if (!$wish) {
             return false;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\WishService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class WishListController extends Controller
@@ -15,7 +16,7 @@ class WishListController extends Controller
         $this->wishService = $wishService;
     }
 
-    public function create($request): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -47,7 +48,7 @@ class WishListController extends Controller
         return response()->json($response);
     }
 
-    public function getList(int $userId ,$request): JsonResponse
+    public function getList(int $userId ,Request $request): JsonResponse
     {
         $data = $request->validate([
             'page_number' => '',
@@ -66,13 +67,9 @@ class WishListController extends Controller
         return response()->noContent();
     }
 
-    public function get(): JsonResponse
+    public function get(int $id): JsonResponse
     {
-        $requestData = request()->validate([
-            'id' => 'required|integer|min:1',
-        ]);
-
-        $wish = $this->wishService->getById($requestData['id']);
+        $wish = $this->wishService->getById($id);
 
         if (!$wish) {
             return response()->json(['error' => 'Wish not found'], 404);
