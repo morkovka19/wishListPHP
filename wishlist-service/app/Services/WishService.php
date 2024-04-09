@@ -29,6 +29,11 @@ class WishService
     {
         $wish = $this->table->findById($id);
 
+        if(!$wish)
+        {
+            return response()->json(['error' => 'Wish with this id does not exist'], 404);
+        }
+
         if($wish['user_id'] !== $userId)
         {
             return response()->json(['error' => 'Can not update wish'], 403);

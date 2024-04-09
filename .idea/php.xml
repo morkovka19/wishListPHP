@@ -354,6 +354,11 @@
       <path value="$PROJECT_DIR$/wishlist-service/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/wishlist-service/vendor/composer" />
       <path value="$PROJECT_DIR$/wishlist-service/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/auth-service/vendor/stella-maris/clock" />
+      <path value="$PROJECT_DIR$/auth-service/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/auth-service/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/auth-service/vendor/tymon/jwt-auth" />
+      <path value="$PROJECT_DIR$/recs-service/vendor/laravel/sanctum" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

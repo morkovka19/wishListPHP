@@ -10,6 +10,6 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/wishes', [WishListController::class, 'create']);
 Route::put('/wishes/{id}', [WishListController::class, 'update']);
-Route::get('/wishes/{id}/{userId}', [WishListController::class, 'getList']);
+Route::get('/wishes/list/{userId}', [WishListController::class, 'getList']);
 Route::delete('/wishes/{id}/{userId}', [WishListController::class, 'delete']);
 Route::get('/wishes/{id}', [WishListController::class, 'get']);

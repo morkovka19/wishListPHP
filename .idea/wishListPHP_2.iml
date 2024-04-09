@@ -5,19 +5,15 @@
       <sourceFolder url="file://$MODULE_DIR$/auth-service/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/auth-service/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/auth-service/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
-      <sourceFolder url="file://$MODULE_DIR$/auth-service/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/auth-service/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/auth-service/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/auth-service/tests/Unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
-      <sourceFolder url="file://$MODULE_DIR$/recs-service/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/tests/Feature" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/recs-service/tests/Unit" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/wishlist-service/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/wishlist-service/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/wishlist-service/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
@@ -361,6 +357,11 @@
       <excludeFolder url="file://$MODULE_DIR$/wishlist-service/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/wishlist-service/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/wishlist-service/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/auth-service/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/auth-service/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/auth-service/vendor/stella-maris/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/auth-service/vendor/tymon/jwt-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/recs-service/vendor/laravel/sanctum" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

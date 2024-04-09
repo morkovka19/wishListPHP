@@ -31,7 +31,7 @@ class WishListController extends Controller
         return response()->json($response, 201);
     }
 
-    public function update(int $id, $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
