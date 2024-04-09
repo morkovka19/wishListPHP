@@ -51,10 +51,10 @@ class WishListController extends Controller
     public function getList(int $userId ,Request $request): JsonResponse
     {
         $data = $request->validate([
-            'page_number' => '',
-            'page_size' => '',
-            'sort_value' => '',
-            'sort_direction' => ''
+            'page_number' => 'nullable|integer|min:1',
+            'page_size' => 'nullable|integer|min:1|max:100',
+            'sort_value' => 'nullable|in:name,priority',
+            'sort_direction' => 'nullable|in:asc,desc'
         ]);
 
         $list = $this->wishService->list($userId, $data);
