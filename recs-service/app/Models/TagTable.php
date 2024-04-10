@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TagTable extends Model
 {
-    public static function findTagById($id)
-    {
-        return self::find($id);
-    }
-
     public static function createTag($data)
     {
         return self::create([
@@ -42,5 +37,10 @@ class TagTable extends Model
         }
 
         return $tag->delete();
+    }
+
+    public function getById($id)
+    {
+        return self::query()->find($id);
     }
 }

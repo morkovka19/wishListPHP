@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemTable extends Model
 {
-    public static function findItemById($id)
-    {
-        return self::find($id);
-    }
-
     public static function createItem($data)
     {
         return self::create([
@@ -18,13 +13,12 @@ class ItemTable extends Model
             'description' => $data['description'],
             'example_url' => $data['example_url'],
             'tag_id' => $data['tag_id'],
-            'taf_id' => $data['taf_id']
         ]);
     }
 
     public static function updateItem($id, $data)
     {
-        $item = self::find($id);
+        $item = self::query()->find($id);
 
         if (!$item) {
             return false;
@@ -35,7 +29,6 @@ class ItemTable extends Model
             'description' => $data['description'],
             'example_url' => $data['example_url'],
             'tag_id' => $data['tag_id'],
-            'taf_id' => $data['taf_id']
         ]);
 
         return $item;
@@ -52,8 +45,8 @@ class ItemTable extends Model
         return $item->delete();
     }
 
-    public static function findItemsByTagId($tagId)
+    public function findById($id)
     {
-        return self::where('tag_id', $tagId)->get();
+        return self::query()->find($id);
     }
 }
