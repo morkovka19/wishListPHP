@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61416e86-187c-4125-a693-cdfb198ac0f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recs-service/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/recs-service/app/Providers/AppServiceProvider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +37,16 @@
     &quot;assignee&quot;: &quot;maximBoolBool&quot;
   }
 }</component>
+  <component name="GitRewordedCommitMessages">
+    <option name="commitMessagesMapping">
+      <RewordedCommitMessageMapping>
+        <option name="originalMessage" value="Wl-start controllers" />
+        <option name="rewordedMessage" value="RS add services, controllers" />
+      </RewordedCommitMessageMapping>
+    </option>
+    <option name="currentCommit" value="1" />
+    <option name="onto" value="e5c4038237efaed96a8c6a798cfc7f606afd739e" />
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -457,7 +467,7 @@
       <workItem from="1712686239789" duration="273000" />
       <workItem from="1712686528890" duration="2824000" />
       <workItem from="1712699792480" duration="1349000" />
-      <workItem from="1712770394615" duration="2155000" />
+      <workItem from="1712770394615" duration="3286000" />
     </task>
     <task id="LOCAL-00001" summary="RS add list validation">
       <option name="closed" value="true" />
@@ -475,7 +485,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712772276407</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="RS add list validation">
+      <option name="closed" value="true" />
+      <created>1712772624311</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712772624311</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

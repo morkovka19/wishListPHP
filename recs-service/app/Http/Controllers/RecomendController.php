@@ -28,9 +28,9 @@ class RecomendController extends Controller
     public function list(int $tagId, Request $request)
     {
         $data = $request->validate([
-            'page_number' => 'nullable|integer|min:1',
-            'page_size' => 'nullable|integer|min:1|max:100',
-            'sort_value' => 'nullable|in:name,description'
+            'page_number' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1|max:100',
+            'sort_value' => 'required|in:name,description'
         ]);
 
         $response = $this->recomendateService->list($tagId, $data);
