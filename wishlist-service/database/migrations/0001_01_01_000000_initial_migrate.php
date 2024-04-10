@@ -21,14 +21,10 @@ return new class extends Migration
             $table->unsignedBigInteger('tag_id')->nullable();
             $table->integer('priority')->default(0);
             $table->timestamps();
+            $table->bigInteger('user_id');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     *
-     */
     public function down()
     {
         Schema::dropIfExists('wishes');

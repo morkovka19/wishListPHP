@@ -2,64 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Services\WishService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class WishListController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected WishService $wishService;
+
+    public function __construct(WishService $wishService)
     {
-        //
+        $this->wishService = $wishService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'example_url' => 'nullable|url',
+            'tag_id' => 'nullable|integer',
+            'priority' => 'nullable|integer',
+            'user_id' => 'required|integer'
+        ]);
+
+        $response = $this->wishService->create($data);
+        return response()->json($response, 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(int $id, Request $request): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'example_url' => 'nullable|url',
+            'tag_id' => 'required|integer',
+            'priority' => 'required|integer|min:1',
+            'user_id' => 'required|integer|min:1'
+        ]);
+
+        $user_id = $data['user_id'];
+
+        $response = $this->wishService->update($id, $user_id, $data);
+        return response()->json($response);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function getList(int $userId ,Request $request): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'page_number' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1|max:100',
+            'sort_value' => 'required|in:name,priority',
+            'sort_direction' => 'required|in:asc,desc'
+        ]);
+
+        $list = $this->wishService->list($userId, $data);
+        return response()->json($list);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function delete(int $id, int $userId): Response
     {
-        //
+        $this->wishService->delete($id, $userId);
+        return response()->noContent();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function get(int $id): JsonResponse
     {
-        //
-    }
+        $wish = $this->wishService->getById($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (!$wish) {
+            return response()->json(['error' => 'Wish not found'], 404);
+        }
+
+        return response()->json($wish);
     }
 }
