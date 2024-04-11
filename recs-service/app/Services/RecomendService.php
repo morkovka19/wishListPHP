@@ -17,10 +17,6 @@ class RecomendService
     public function get(int $id)
     {
         $recomend = $this->table->findById($id);
-
-        if(!$recomend)
-            return response()->json(['error' => 'Recomend with this id does not exist '], 404);
-
         return $recomend;
     }
 

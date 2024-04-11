@@ -11,7 +11,7 @@ class RecomendController extends Controller
 
     public function __construct(RecomendService $recomendateService)
     {
-        $this->$recomendateService = $recomendateService;
+        $this->recomendateService = $recomendateService;
     }
 
     public function get(int $id)
@@ -36,7 +36,7 @@ class RecomendController extends Controller
         $response = $this->recomendateService->list($tagId, $data);
 
         if(!$response){
-            return response()->json(['error' => 'Wish not found'], 404);
+            return response()->json(['error' => 'Recommendations not exist'], 404);
         }
 
         return response()->json($response);

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemTable extends Model
 {
+    protected $table = 'items';
+
     public static function createItem($data)
     {
         return self::create([
