@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\RecomendService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RecomendController extends Controller
@@ -14,7 +15,7 @@ class RecomendController extends Controller
         $this->recomendateService = $recomendateService;
     }
 
-    public function get(int $id)
+    public function get(int $id): JsonResponse
     {
         $response = $this->recomendateService->get($id);
 
@@ -25,12 +26,13 @@ class RecomendController extends Controller
         return response()->json($response);
     }
 
-    public function list(int $tagId, Request $request)
+    public function list(int $tagId, Request $request): JsonResponse
     {
         $data = $request->validate([
             'page_number' => 'required|integer|min:1',
             'page_size' => 'required|integer|min:1|max:100',
-            'sort_value' => 'required|in:name,description'
+            'sort_value' => 'required|in:name,description',
+            'sort_direction' => 'required|in:asc,desc'
         ]);
 
         $response = $this->recomendateService->list($tagId, $data);

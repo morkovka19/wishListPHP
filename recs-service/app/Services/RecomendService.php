@@ -27,7 +27,7 @@ class RecomendService
         $sortValue = $data['sort_value'];
         $sortDirection = $data['sort_direction'];
 
-        $query = DB::table('wishes')
+        $query = DB::table('items')
             ->where('tag_id', $tagId);
 
         $query->orderBy($sortValue, $sortDirection);
