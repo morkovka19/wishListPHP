@@ -12,7 +12,7 @@ class TagController extends Controller
 
     public function __construct(TagService $tagService)
     {
-        $this->$tagService = $tagService;
+        $this->tagService = $tagService;
     }
 
     public function get(int $id): JsonResponse
