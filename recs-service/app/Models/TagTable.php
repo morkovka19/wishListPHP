@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TagTable extends Model
 {
+    protected $table = 'tags';
+
     public static function createTag($data)
     {
         return self::create([
