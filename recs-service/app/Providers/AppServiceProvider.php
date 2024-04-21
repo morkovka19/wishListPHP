@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\ItemTable;
 use App\Models\TagTable;
-use App\Services\RecomendService;
+use App\Services\RecomendApiClient;
 use App\Services\TagService;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,8 +12,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(RecomendService::class, function ($app) {
-            return new RecomendService(
+        $this->app->bind(RecomendApiClient::class, function ($app) {
+            return new RecomendApiClient(
                 $app->make(ItemTable::class)
             );
         });
