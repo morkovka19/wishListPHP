@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Services\RecomendApiClient;
+use App\Services\RecomendService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RecomendController extends Controller
 {
-    protected RecomendApiClient $recomendateService;
+    protected RecomendService $recomendateService;
 
-    public function __construct(RecomendApiClient $recomendateService)
+    public function __construct(RecomendService $recomendateService)
     {
         $this->recomendateService = $recomendateService;
     }

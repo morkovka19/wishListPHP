@@ -16,8 +16,7 @@ class RecomendService
 
     public function get(int $id)
     {
-        $recomend = $this->table->findById($id);
-        return $recomend;
+        return $this->table->findById($id);
     }
 
     public function list(int $tagId, $data)

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\WishTable;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +31,7 @@ class WishService
     {
         $wish = $this->table->findById($id);
 
-        if(!$wish['tag_id'])
+        if($wish['tag_id'] != null)
         {
             /// TODO добавить кэщирование кэширование в redis
             $tag = $this->recomendApiClient->GetTagById($wish['tag_id']);
@@ -45,12 +44,10 @@ class WishService
                 'user_id' => $wish['user_id'],
                 'tag' => [
                     'id' => $tag['id'],
-                    'name' => $tag['name'],
-                    'description' => $tag['description'],
+                    'name' => $tag['name']
                 ],
             ];
         }
-
         return [
             'id' => $wish['id'],
             'name' => $wish['name'],
@@ -93,7 +90,7 @@ class WishService
         return $wish;
     }
 
-    public function list($userId, $data): array
+    public function list($userId, $data)
     {
         $pageNumber = $data['page_number'] ?? 1;
         $pageSize = $data['page_size'] ?? 10;
@@ -110,44 +107,29 @@ class WishService
         } else {
             $query->orderBy('created_at', $sortDirection);
         }
-        $results = $query->paginate($pageSize, ['*'], 'page', $pageNumber);
-
+        $results = $query->paginate($pageSize, ['*'], 'page', $pageNumber)->items();
         $tags = $this->recomendApiClient->GetTagList();
-        ///TODO кэширование + переработка
 
         $response = [];
-        foreach ($results as $result){
-            if(!$result["tag_id"]){
-                $model = [
-                    'id' => $result['id'],
-                    'name' => $result['name'],
-                    'description' => $result['description'],
-                    'example_url' => $result['example_url'],
-                    'priority' => $result['priority'],
-                    'user_id' => $result['user_id'],
-                    'tag' => null
-                ];
-                $response.add($model);
-                continue;
-            }
+        foreach ($results as $result) {
+            $currentTag = $result->tag_id ? current(array_filter($tags, function($tag) use ($result) {
+                return $tag->id == $result->tag_id;
+            })) : null;
 
-            $tag = $tags[$result['tag_id']];
             $model = [
-                'id' => $result['id'],
-                'name' => $result['name'],
-                'description' => $result['description'],
-                'example_url' => $result['example_url'],
-                'priority' => $result['priority'],
-                'user_id' => $result['user_id'],
-                'tag' => [
-                    'id' => $tag['id'],
-                    'name' => $tag['name'],
-                    'description' => $tag['description'],
-                ],
+                'id' => $result->id,
+                'name' => $result->name,
+                'description' => $result->description,
+                'example_url' => $result->example_url,
+                'priority' => $result->priority,
+                'user_id' => $result->user_id,
+                'tag' => $currentTag,
             ];
 
-            $response.add($model);
+            $response[] = $model;
         }
+
         return $response;
     }
+
 }
