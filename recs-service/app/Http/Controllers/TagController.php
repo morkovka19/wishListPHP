@@ -12,7 +12,7 @@ class TagController extends Controller
 
     public function __construct(TagService $tagService)
     {
-        $this->$tagService = $tagService;
+        $this->tagService = $tagService;
     }
 
     public function get(int $id): JsonResponse
@@ -32,7 +32,7 @@ class TagController extends Controller
         $data = $request->validate([
             'page_number' => 'required|integer|min:1',
             'page_size' => 'required|integer|min:1',
-            'sort_value' => 'required|in:name,description'
+            'sort_value' => 'required|in:name'
         ]);
 
         $response = $this->tagService->list($data);

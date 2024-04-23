@@ -3,29 +3,63 @@
 namespace App\Services;
 
 use App\Models\WishTable;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use function Sodium\add;
 
 class WishService
 {
     protected WishTable $table;
 
-    public function __construct(WishTable $table)
+    protected RecomendApiClient $recomendApiClient;
+
+    public function __construct(WishTable $table, RecomendApiClient $apiClient)
     {
         $this->table = $table;
+        $this->recomendApiClient = $apiClient;
     }
 
-    public function create($data)
+    public function create($data): Model|Builder
     {
         return $this->table->create($data);
     }
 
-    public function getById(int $id)
+    public function getById(int $id): Model|Collection|Builder|array|null
     {
-        return $this->table->findById($id);
+        $wish = $this->table->findById($id);
+
+        if($wish['tag_id'] != null)
+        {
+            /// TODO добавить кэщирование кэширование в redis
+            $tag = $this->recomendApiClient->GetTagById($wish['tag_id']);
+            return [
+                'id' => $wish['id'],
+                'name' => $wish['name'],
+                'description' => $wish['description'],
+                'example_url' => $wish['example_url'],
+                'priority' => $wish['priority'],
+                'user_id' => $wish['user_id'],
+                'tag' => [
+                    'id' => $tag['id'],
+                    'name' => $tag['name']
+                ],
+            ];
+        }
+        return [
+            'id' => $wish['id'],
+            'name' => $wish['name'],
+            'description' => $wish['description'],
+            'example_url' => $wish['example_url'],
+            'priority' => $wish['priority'],
+            'user_id' => $wish['user_id'],
+            'tag' => null
+        ];
     }
 
-    public function update(int $id,int $userId, $data)
+    public function update(int $id,int $userId, $data): Model|Collection|Builder|bool|JsonResponse|array
     {
         $wish = $this->table->findById($id);
 
@@ -42,7 +76,7 @@ class WishService
         return $this->table->updateWish($id, $data);
     }
 
-    public function delete(int $id, int $userId)
+    public function delete(int $id, int $userId): Model|Collection|Builder|JsonResponse|array|null
     {
         $wish = $this->table->findById($id);
 
@@ -56,7 +90,7 @@ class WishService
         return $wish;
     }
 
-    public function list($userId, $data): LengthAwarePaginator
+    public function list($userId, $data)
     {
         $pageNumber = $data['page_number'] ?? 1;
         $pageSize = $data['page_size'] ?? 10;
@@ -73,8 +107,29 @@ class WishService
         } else {
             $query->orderBy('created_at', $sortDirection);
         }
+        $results = $query->paginate($pageSize, ['*'], 'page', $pageNumber)->items();
+        $tags = $this->recomendApiClient->GetTagList();
 
-        return $query->paginate($pageSize, ['*'], 'page', $pageNumber);
+        $response = [];
+        foreach ($results as $result) {
+            $currentTag = $result->tag_id ? current(array_filter($tags, function($tag) use ($result) {
+                return $tag->id == $result->tag_id;
+            })) : null;
+
+            $model = [
+                'id' => $result->id,
+                'name' => $result->name,
+                'description' => $result->description,
+                'example_url' => $result->example_url,
+                'priority' => $result->priority,
+                'user_id' => $result->user_id,
+                'tag' => $currentTag,
+            ];
+
+            $response[] = $model;
+        }
+
+        return $response;
     }
 
 }
