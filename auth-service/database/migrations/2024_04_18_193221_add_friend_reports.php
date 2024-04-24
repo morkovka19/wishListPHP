@@ -11,19 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('friends_request',  function (Blueprint $table){
+        Schema::create('friend_requests',  function (Blueprint $table){
+            $table->id();
             $table->bigInteger('sender_id');
             $table->bigInteger('receiver_id');
             $table->enum('status', ['sended', 'accepted', 'rejected']);
             
-            $table->primary(['sender_id', 'receiver_id']);
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
+            //$table->primary(['sender_id', 'receiver_id']);
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->timestamps();
 
         });
-        Schema::table('users', function (Blueprint $table) {
-            $table -> json('friends');
-        });
+   
     }
 
     /**
@@ -31,9 +32,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('friends_request');
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('friends');
+        
+        Schema::table('friend_requests', function (Blueprint $table) {
+            $table->dropForeign(['sender_id']);
+            $table->dropForeign(['receiver_id']);
         });
+        
+        Schema::dropIfExists('friend_requests');
     }
 };
