@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FriendRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,22 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'friends'
+
+], function ($router) {
+    Route::get('proposals', [FriendRequestController::class, 'proposals']);
+    Route::get('requests', [FriendRequestController::class, 'requests']);
+    Route::get('list', [FriendRequestController::class, 'list']);
+    
+    Route::post('send', [FriendRequestController::class, 'send']);
+    Route::patch('accept', [FriendRequestController::class, 'accept']);
+    Route::patch('reject', [FriendRequestController::class, 'reject']);
+        
+    Route::delete('delete', [FriendRequestController::class, 'delete']);
+
 });
