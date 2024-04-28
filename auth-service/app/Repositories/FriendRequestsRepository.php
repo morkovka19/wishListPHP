@@ -17,14 +17,14 @@ class FriendRequestsRepository implements FriendRequestsRepositoryInterface
 
     public function getIncomingRequests(User $user): Collection
     {
-        $proposals = FriendRequest::where('receiver_id', $user->id)->where('status', RequestStatusEnum::Sended)->get(); 
+        $proposals = FriendRequest::where('receiver_id', $user->id)->where('status', RequestStatusEnum::Sended)->get();
         $proposals = User::whereIn('id', $proposals->pluck('sender_id'))->get();
         return $proposals;
     }
-    
+
     public function getOutcomingRequests(User $user): Collection
     {
-        $requests = FriendRequest::where('sender_id', $user->id)->where('status', RequestStatusEnum::Sended)->get(); 
+        $requests = FriendRequest::where('sender_id', $user->id)->where('status', RequestStatusEnum::Sended)->get();
         $requests = User::whereIn('id', $requests->pluck('receiver_id'))->get();
         return $requests;
     }
@@ -48,13 +48,12 @@ class FriendRequestsRepository implements FriendRequestsRepositoryInterface
     }
     public function getFriendList(User $user)
     {
-        $allAcceptedRequests = $this->all($user)->where('status', RequestStatusEnum::Accepted); 
-        
+        $allAcceptedRequests = $this->all($user)->where('status', RequestStatusEnum::Accepted);
+
         $acceptedSenders = $allAcceptedRequests->where('sender_id', $user->id)->where('status', RequestStatusEnum::Accepted)->pluck('receiver_id');
         $acceptedReceivers = $allAcceptedRequests->where('receiver_id', $user->id)->where('status', RequestStatusEnum::Accepted)->pluck('sender_id');
         $friendList = User::whereIn('id', $acceptedSenders->merge($acceptedReceivers))->get();
-        
+
         return response()->json($friendList);
     }
-
 }
