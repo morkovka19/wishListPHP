@@ -90,7 +90,7 @@ class WishService
         return $wish;
     }
 
-    public function list($userId, $data)
+    public function list($userId, $data): array
     {
         $pageNumber = $data['page_number'] ?? 1;
         $pageSize = $data['page_size'] ?? 10;
