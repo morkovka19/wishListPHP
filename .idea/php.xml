@@ -359,16 +359,17 @@
       <path value="$PROJECT_DIR$/auth-service/vendor/tymon/jwt-auth" />
       <path value="$PROJECT_DIR$/recs-service/vendor/laravel/sanctum" />
       <path value="$PROJECT_DIR$/auth-service/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/wishlist-service/vendor/predis/predis" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/auth-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/auth-service/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/recs-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/recs-service/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/auth-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/auth-service/vendor/autoload.php" use_configuration_file="true" />
       <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/wishlist-service/phpunit.xml" custom_loader_path="$PROJECT_DIR$/wishlist-service/vendor/autoload.php" use_configuration_file="true" />
     </phpunit_settings>
   </component>
