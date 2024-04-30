@@ -14,13 +14,11 @@ class FriendService implements FriendServiceInterface
     public function __construct(FriendRequestsRepositoryInterface $friendRequestsRepositoryInterface)
     {
         $this->friendRequestsRepository = $friendRequestsRepositoryInterface;
-
-
     }
     public function send(string $receiverName)
     {
         $reciever_id = (User::where('name', $receiverName)->first())->id;
-        
+
         FriendRequest::create([
             'sender_id' => auth()->user()->id,
             'receiver_id' => $reciever_id,
@@ -50,7 +48,7 @@ class FriendService implements FriendServiceInterface
                 ->toQuery()
                 ->update(['status'=> RequestStatusEnum::Rejected]);
         return response()->json(['status'=>'ok']);
-        
+
     }
     public function deleteFriend(string $name)
     {   $id = (User::where('name', $name)->first())->id;
@@ -63,11 +61,5 @@ class FriendService implements FriendServiceInterface
                 ->toQuery()
                 ->delete();
         return response()->json(['status'=>'ok']);
-        // $this -> friendRequestsRepository
-        //         ->getIncomingRequests($id)
-        //         ->where('sender_id', $id)
-        //         ->toQuery()
-        //         ->delete();
-        // return response()->json(['status'=>'ok']);
     }
 }

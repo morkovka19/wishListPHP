@@ -20,11 +20,11 @@ class WishListController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'example_url' => 'nullable|url',
             'tag_id' => 'nullable|integer',
-            'priority' => 'nullable|integer',
-            'user_id' => 'required|integer'
+            'priority' => 'nullable|integer|min:1',
+            'user_id' => 'required|integer|min:1'
         ]);
 
         $response = $this->wishService->create($data);
@@ -37,8 +37,8 @@ class WishListController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'example_url' => 'nullable|url',
-            'tag_id' => 'required|integer',
-            'priority' => 'required|integer|min:1',
+            'tag_id' => 'nullable|integer',
+            'priority' => 'nullable|integer|min:1',
             'user_id' => 'required|integer|min:1'
         ]);
 
