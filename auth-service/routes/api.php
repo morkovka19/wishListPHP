@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRequestController;
+use App\Http\Controllers\ProfileEditingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +49,16 @@ Route::group([
     Route::patch('reject', [FriendRequestController::class, 'reject']);
         
     Route::delete('delete', [FriendRequestController::class, 'delete']);
+
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'edit'
+
+], function ($router) {
+    Route::patch('name', [ProfileEditingController::class, 'updateName']);
+    Route::patch('email', [ProfileEditingController::class, 'updateEmail']);
 
 });
