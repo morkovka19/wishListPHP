@@ -17,49 +17,57 @@ class FriendService implements FriendServiceInterface
 
 
     }
-    public function send(User $user, string $name)
+    public function send(string $receiverName)
     {
-        $id = (User::where('name', $name)->first())->id;
+        $reciever_id = (User::where('name', $receiverName)->first())->id;
         
-        $friendRequest = FriendRequest::create([
+        FriendRequest::create([
             'sender_id' => auth()->user()->id,
-            'receiver_id' => $id,
+            'receiver_id' => $reciever_id,
             'status' => 'sended'
         ]);
-        return response()->json($user);
+        return response()->json(['status'=>'ok']);
     }
-    public function acceptFriend(User $user, string $name)
+    public function acceptFriend(string $name)
     {
         //dd(User::where('name', $name)->first()->id);
         $id = (User::where('name', $name)->first())->id;
         $this -> friendRequestsRepository
-                ->getIncomingRequests($user)
+                ->getIncomingRequests(auth()->user()->id)
                 ->where('sender_id', $id)
                 ->toQuery()
                 ->update(['status'=> RequestStatusEnum::Accepted]);
-        return response()->json($user);
+        return response()->json(['status'=>'ok']);
 
 
     }
-    public function rejectFriend(User $user, string $name)
+    public function rejectFriend(string $name)
     {
         $id = (User::where('name', $name)->first())->id;
         $this -> friendRequestsRepository
-                ->getIncomingRequests($user)
+                ->getIncomingRequests($id)
                 ->where('sender_id', $id)
                 ->toQuery()
                 ->update(['status'=> RequestStatusEnum::Rejected]);
-        return response()->json($user);
+        return response()->json(['status'=>'ok']);
         
     }
-    public function deleteFriend(User $user, string $name)
-    {
-        $id = (User::where('name', $name)->first())->id;
+    public function deleteFriend(string $name)
+    {   $id = (User::where('name', $name)->first())->id;
         $this -> friendRequestsRepository
-                ->getIncomingRequests($user)
+                ->all(auth()->user()->id)
+                ->where('sender_id', auth()->user()->id)
+                ->where('receiver_id', $id)
+                ->orWhere('receiver_id', auth()->user()->id)
                 ->where('sender_id', $id)
                 ->toQuery()
                 ->delete();
-        return response()->json($user);
+        return response()->json(['status'=>'ok']);
+        // $this -> friendRequestsRepository
+        //         ->getIncomingRequests($id)
+        //         ->where('sender_id', $id)
+        //         ->toQuery()
+        //         ->delete();
+        // return response()->json(['status'=>'ok']);
     }
 }

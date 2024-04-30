@@ -7,23 +7,23 @@ use App\Models\User;
 interface FriendServiceInterface
 {
     /**
-     * sendF friend request
+     * send friend request
      */
-    public function send(User $user, string $name);
+    public function send(string $receiverName);
      
     /**
-     * accept friend request
+     * accept friend request by sender name
      */
-    public function acceptFriend(User $user, string $name);
+    public function acceptFriend(string $name);
     
     /**
      * reject friend request
      */
-    public function rejectFriend(User $user, string $name);
+    public function rejectFriend(string $name);
     
     /**
      * delete friend request
      */
-    public function deleteFriend(User $user, string $id);
+    public function deleteFriend(string $name);
     
 }

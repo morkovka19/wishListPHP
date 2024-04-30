@@ -7,53 +7,31 @@ use App\Models\User;
 interface FriendRequestsRepositoryInterface
 {
     /**
-     * Get all friend requests by User
+     * Get all friend requests by user id
      */
-    public function all(User $user);
+    public function all(int $id);
     
     /**
-     * Find incoming friend requests by User
+     * Find incoming friend requests by user id
      * 
-     * @param User $user
+     * @param int $id
      * 
      */
-    public function getIncomingRequests(User $user);
+    public function getIncomingRequests(int $id);
     
     /**
-     * Find outcoming friend requests by User
+     * Find outcoming friend requests by user id
      * 
-     * @param User $user
-     * 
-     */
-    public function getOutcomingRequests(User $user);
-
-    /**
-     * Get friend requests by User which are pending for acception or rejection
-     * 
-     * @param User $user
+     * @param int $id
      * 
      */
-    public function getPendingRequsts(User $user);
-
-    /**
-     * Get accepted friend requests by User
-     * 
-     * @param User $user
-     */
-    public function getAcceptedRequest(User $user);
-
-    /**
-     * Get accepted friend requests by User
-     * 
-     * @param User $user
-     */
-    public function getRejectedRequest(User $user);
+    public function getOutcomingRequests(int $id);
 
     /**
      * Get friend list by User
      * 
-     * @param User $user
+     * @param int $id
      */
-    public function getFriendList(User $user);
+    public function getFriendList(int $id);
 
 }

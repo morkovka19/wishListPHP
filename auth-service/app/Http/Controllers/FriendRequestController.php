@@ -25,8 +25,22 @@ class FriendRequestController extends Controller
 
     public function proposals(Request $request)
     {
+        $data = $request->validate([
+            'page_number' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1|max:100',
+            'sort_value' => 'required|in:name',
+            'sort_direction' => 'required|in:asc,desc'
+        ]);
+
+        $pageNumber = $data['page_number'];
+        $pageSize = $data['page_size'];
+        $sortValue = $data['sort_value'];
+        $sortDirection = $data['sort_direction'];
+
         //get all incoming requests
-        $getIncomingRequests = $this->friendRequestsRepository->getIncomingRequests(auth()->user());
+        $getIncomingRequests = $this->friendRequestsRepository->getIncomingRequests(auth()->user()->id);
+        $getIncomingRequests = $getIncomingRequests->orderBy($sortValue, $sortDirection)
+                                    ->paginate($pageSize, ['*'], 'page', $pageNumber);
 
         //return filtered requests
         return response()->json($getIncomingRequests);
@@ -34,37 +48,65 @@ class FriendRequestController extends Controller
 
     public function requests(Request $request)
     {
-        //get all incoming requests
-        $incomingRequests = $this->friendRequestsRepository->getOutcomingRequests(auth()->user());
-
+        $data = $request->validate([
+            'page_number' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1|max:100',
+            'sort_value' => 'required|in:name',
+            'sort_direction' => 'required|in:asc,desc'
+        ]);
+        
+        
+        $pageNumber = $data['page_number'];
+        $pageSize = $data['page_size'];
+        $sortValue = $data['sort_value'];
+        $sortDirection = $data['sort_direction'];
+        
+        //get all outcoming requests
+        $outcomingRequests = $this->friendRequestsRepository->getOutcomingRequests(auth()->user()->id);
+        $outcomingRequests = $outcomingRequests->orderBy($sortValue, $sortDirection)
+                                    ->paginate($pageSize, ['*'], 'page', $pageNumber);
         //return incoming requests
-        return response()->json($incomingRequests);
+        return response()->json($outcomingRequests);
     }
+    
     public function list(Request $request)
     {
-        //dd($this->friendRequestsRepository->all(auth()->user()));
+        
         //get all incoming requests
-        $friendList = $this->friendRequestsRepository->getFriendList(auth()->user());
-        //return incoming requests
+        $data = $request->validate([
+            'page_number' => 'required|integer|min:1',
+            'page_size' => 'required|integer|min:1|max:100',
+            'sort_value' => 'required|in:name',
+            'sort_direction' => 'required|in:asc,desc'
+        ]);
+        
+        $pageNumber = $data['page_number'];
+        $pageSize = $data['page_size'];
+        $sortValue = $data['sort_value'];
+        $sortDirection = $data['sort_direction'];
+        
+        $friendList = $this->friendRequestsRepository->getFriendList(auth()->user()->id);
+        $friendList = $friendList->orderBy($sortValue, $sortDirection)
+                                    ->paginate($pageSize, ['*'], 'page', $pageNumber);
         return response()->json($friendList);
     }
     public function send(Request $request)
     {
-        return $this->friendService->send(auth()->user(), $request->name);
+        return $this->friendService->send(auth()->user()->id, $request->name);
     }
     public function accept(Request $request)
     {
-        return $this->friendService->acceptFriend(auth()->user(), $request->name);
+        return $this->friendService->acceptFriend(auth()->user()->id, $request->name);
     }
 
     public function reject(Request $request)
     {
-        return $this->friendService->rejectFriend(auth()->user(), $request->name);
+        return $this->friendService->rejectFriend(auth()->user()->id, $request->name);
     }
     
     public function delete(Request $request)
     {
-        return $this->friendService->deleteFriend(auth()->user(), $request->name);
+        return $this->friendService->deleteFriend($request->name);
     }
 
 
