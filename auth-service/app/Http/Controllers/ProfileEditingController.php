@@ -38,7 +38,7 @@ class ProfileEditingController extends Controller
         try{
             
             $request->validate([
-                'email' => 'required|string|email|max:255|unique:users,email'
+                'email' => 'required|string|email|max:255|unique:users,email,'. auth()->user()->id,
             ]);
         } 
         catch (ValidationException $e){
