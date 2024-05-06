@@ -42,10 +42,7 @@ class WishService
                 'example_url' => $wish['example_url'],
                 'priority' => $wish['priority'],
                 'user_id' => $wish['user_id'],
-                'tag' => [
-                    'id' => $tag['id'],
-                    'name' => $tag['name']
-                ],
+                'tag_id' => $tag['id']
             ];
         }
         return [
@@ -123,7 +120,7 @@ class WishService
                 'example_url' => $result->example_url,
                 'priority' => $result->priority,
                 'user_id' => $result->user_id,
-                'tag' => $currentTag,
+                'tag_id' => $currentTag != null ? $currentTag->id : null,
             ];
 
             $response[] = $model;
