@@ -27,7 +27,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('example_url')->nullable();
             $table->bigInteger('tag_id')->unsigned()->nullable();
-            $table->bigInteger('taf_id')->unsigned()->nullable();
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->timestamps();
         });

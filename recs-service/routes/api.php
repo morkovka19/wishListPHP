@@ -10,6 +10,5 @@ Route::group(['middleware' => 'api','prefix' => 'tags'], function () {
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'recommendations'], function () {
-    Route::get('/{id}', [RecomendController::class, 'get']);
     Route::get('/tag/{tagId}', [RecomendController::class, 'list']);
 });

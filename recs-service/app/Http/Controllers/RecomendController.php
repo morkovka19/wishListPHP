@@ -16,17 +16,6 @@ class RecomendController extends Controller
         $this->recomendateService = $recomendateService;
     }
 
-    public function get(int $id): JsonResponse
-    {
-        $response = $this->recomendateService->get($id);
-
-        if(!$response){
-            return response()->json(['error' => 'Recommendation with such id does not exist'], 404);
-        }
-
-        return response()->json($response);
-    }
-
     public function list(int $tagId, Request $request): JsonResponse
     {
         $data = $request->validate([
