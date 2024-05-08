@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\ProfileEditingController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,5 +61,15 @@ Route::group([
 ], function ($router) {
     Route::patch('name', [ProfileEditingController::class, 'updateName']);
     Route::patch('email', [ProfileEditingController::class, 'updateEmail']);
+
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'search'
+
+], function ($router) {
+    Route::get('by_name', [SearchController::class, 'findByName']);
 
 });

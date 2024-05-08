@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\FriendService;
+use App\Services\SearchService;
 use App\Services\Interfaces\FriendServiceInterface;
+use App\Services\Interfaces\SearchServiceInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             FriendServiceInterface::class,
             FriendService::class
+        );
+        
+        $this->app->bind(
+            SearchServiceInterface::class,
+            SearchService::class
         );
     }
 
