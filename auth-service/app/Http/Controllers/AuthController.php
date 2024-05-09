@@ -31,7 +31,7 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
-        
+
         $credentials = $request->only('email', 'password');
 
         $token = Auth::attempt($credentials);
@@ -46,14 +46,14 @@ class AuthController extends Controller
 
         return response() -> json([
             'status' => 'success',
-            'user' => $user, 
+            'user' => $user,
             'authorisation' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-
-        ]);
+        ])-> withCookie(cookie('jwt', $token, 60*24));
     }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -69,7 +69,7 @@ class AuthController extends Controller
         ]);
 
         $token = Auth::login($user);
-        
+
         return response() ->json([
             'status' => 'success',
             'user' => $user,
@@ -100,7 +100,7 @@ class AuthController extends Controller
         Auth::logout();
 
         return response()->json([
-            'status' => 'success', 
+            'status' => 'success',
             'messsage' => 'Successfully logged out'
         ]);
     }

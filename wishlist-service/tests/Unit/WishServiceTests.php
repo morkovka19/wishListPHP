@@ -132,7 +132,7 @@ class WishServiceTests extends TestCase
                 'example_url' => 'https://example.com',
                 'priority' => 1,
                 'user_id' => 1,
-                'tag' => (object) ['id' => 1, 'name' => 'Test tag 1'],
+                'tag_id' => 2,
             ],
             [
                 'id' => 6,
@@ -141,7 +141,7 @@ class WishServiceTests extends TestCase
                 'example_url' => 'https://example.com',
                 'priority' => 2,
                 'user_id' => 1,
-                'tag' => (object) ['id' => 2, 'name' => 'Test tag 2'],
+                'tag_id' => null,
             ],
             [
                 'id' => 7,
@@ -150,7 +150,7 @@ class WishServiceTests extends TestCase
                 'example_url' => 'https://example.com',
                 'priority' => 3,
                 'user_id' => 1,
-                'tag' => null,
+                'tag_id' => null,
             ],
         ];
 
