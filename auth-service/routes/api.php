@@ -71,5 +71,5 @@ Route::group([
 
 ], function ($router) {
     Route::get('by_name', [SearchController::class, 'findByName']);
-
+    Route::get('by_id', [SearchController::class, 'findById']);
 });
