@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Services\Interfaces\SearchServiceInterface;
 
+use App\Services\Interfaces\SearchServiceInterface;
+use App\Services\Interfaces\FriendServiceInterface;
 
 class SearchController extends Controller
 {
@@ -44,6 +45,13 @@ class SearchController extends Controller
         }
 
         return response()->json($users);
+
+    }
+
+    public function findById(Request $request){
+        
+        $id = $request->input('id');
+        return $this->searchService->getUserById($id);
 
     }
 }
