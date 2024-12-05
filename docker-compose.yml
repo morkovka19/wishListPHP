@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: auth.Dockerfile
+    env_file:
+      - /env/auth.docker.env
+      - /env/composer.docker.env
+    command: bash -c "php artisan migrate --force && php-fpm"
+    ports:
+      - "${AUTH_PORT}:8000"
+    depends_on:
+      - db
+
+  recs:
+    build:
+      context: .
+      dockerfile: recs.Dockerfile
+    env_file:
+      - /env/recs.docker.env
+      - /env/composer.docker.env
+    command: bash -c "php artisan migrate --force && php-fpm"
+    ports:
+      - "${RECS_PORT}:8000"
+    depends_on:
+      - db
+
+  wish:
+    build:
+      context: .
+      dockerfile: wish.Dockerfile
+    env_file:
+      - /env/wishlist.docker.env
+      - /env/composer.docker.env
+    command: bash -c "php artisan migrate --force && php-fpm"
+    ports:
+      - "${WISH_PORT}:8000"
+    depends_on:
+        - db
+        - redis
+
+  db:
+    image: postgres:latest
+    env_file:
+      - /env/composer.docker.env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  redis:
+    image: redis:latest
+    env_file:
+      - /env/composer.docker.env
+    ports:
+      - "${REDIS_PORT}:6379"
